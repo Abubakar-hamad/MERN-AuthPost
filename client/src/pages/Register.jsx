@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { FaUser } from "react-icons/fa"
 import {toast} from 'react-toastify'
-import '../App.css'
 import { register, reset } from "../redux/Slice/Auth/Authslice"
 import Spinner from "../components/Spinner/Spinner"
 
@@ -25,6 +24,7 @@ function Register() {
 
     dispatch(reset())
   } , [user , isError ,isSuccess , message , navigate , dispatch])
+  
   const[formData , setFormData] = useState({
     name:'',
     email:'',

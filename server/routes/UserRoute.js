@@ -6,7 +6,7 @@ import protect from '../middleware/authMiddleware.js'
 const router = express.Router()
 
 
-router.get('/login' ,  loginUser)
+router.post('/login' ,  loginUser)
 
 router.post('/register/' , registerUser)
 

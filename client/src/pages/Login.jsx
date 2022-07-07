@@ -1,8 +1,18 @@
-import { useState } from "react"
+
+import { useEffect, useState } from "react"
 import { FaUser } from "react-icons/fa"
-import '../App.css'
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import {toast} from 'react-toastify'
+import Spinner from "../components/Spinner/Spinner"
+import {signIn , reset} from '../redux/Slice/Auth/Authslice'
 
 function Login() {
+
+  const navigate = useNavigate()
+  const dispatch  = useDispatch()
+
+  
   const[formData , setFormData] = useState({
     email:'',
     password:'',
@@ -10,6 +20,20 @@ function Login() {
   })
   const { email ,password } = formData
   
+  const { user , isLoadin , isError , isSuccess , message} = useSelector(state => state.auth)
+
+  useEffect(()=>{
+   
+    if(isError){
+       toast.error(message)
+    }
+
+    if(isSuccess || user){
+      navigate('/')
+    }
+
+    dispatch(reset())
+  }, [ isSuccess , isError , message , navigate , user , dispatch])
   
   const onChange = (e)=>{
     setFormData({...formData , [e.target.name]:e.target.value})
@@ -19,9 +43,19 @@ function Login() {
   
   const onSubmit = (e)=>{
     e.preventDefault()
-    console.log(formData);
+    const userData = {
+      email , 
+      password
+    }
+    console.log(userData);
+    dispatch(signIn(userData))
+    
    }
   
+   if(isLoadin){
+    return <Spinner/>
+   }
+
   return (
 
     <>
@@ -34,7 +68,7 @@ function Login() {
 
 
       <section className="form">
-        <form onSubmit={onSubmit} action="">
+        <form onSubmit={onSubmit} >
           <div className="form-group">
             <input type="text" onChange={onChange} className="form-control" id="email" name="email" value={email} placeholder="Enter Email" />
             <input type="text" onChange={onChange} className="form-control" id="password" name="password" value={password} placeholder="Enter Password" />
