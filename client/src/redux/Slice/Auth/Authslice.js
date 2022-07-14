@@ -1,4 +1,5 @@
 import {createAsyncThunk , createSlice} from  '@reduxjs/toolkit'
+import axios from 'axios'
 import authService from './authService'
 
 
@@ -38,6 +39,19 @@ export const signIn = createAsyncThunk('auth/signIn', async (user, thunkAPI) => 
     }
   })
 
+
+export const getMe = createAsyncThunk('auth/getMe' , async(userData , thunkAPI)=>{
+    try {
+        const res = await axios.get('/api/user/me' , userData)
+        return res.data
+    } catch (error) {
+        const message =
+        (error.response && error.response.data && error.response.data.message) ||
+        error.message ||
+        error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
 
 
 

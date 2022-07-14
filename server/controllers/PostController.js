@@ -36,16 +36,16 @@ export const editPost = asyncHandler(async(req , res)=>{
         throw new Error("post Not Found to Update")
     }
 
-    const user = await UserModel.findById(req.user.id)
+    
 
     // check for user 
 
-    if(!user){
+    if(!req.user){
         return res.status(401).json({message:"not authraize"})
     }
 
     // make sure the loged user matches the user
-    if(post.user.toString() !== user.id){
+    if(post.user.toString() !== req.user.id){
         return res.status(401).json("user not authrized")
     }
 
@@ -67,16 +67,16 @@ export const delPost = asyncHandler(async (req , res)=>{
         throw new Error("post Not Found to Delete")
     }
 
-    const user = await UserModel.findById(req.user.id)
+ 
 
     // check for user 
 
-    if(!user){
+    if(!req.user){
         return res.status(401).json({message:"not authraize"})
     }
 
     // make sure the loged user matches the user
-    if(post.user.toString() !== user.id){
+    if(post.user.toString() !== req.user.id){
         return res.status(401).json("user not authrized")
     }
 

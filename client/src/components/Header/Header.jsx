@@ -27,8 +27,10 @@ function Header() {
         <ul>
         {user ? (
             <>
+            <li>My Post</li>
+     
             <li>
-            {user.name}
+                <Link to='/me'>{user.name}</Link>
             </li>
             <li>
              <button onClick={onLogout} > <FaSignOutAlt/> signout</button>

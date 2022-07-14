@@ -4,8 +4,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import './App.css';
 import Header from './components/Header/Header';
+
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
+import Me from './pages/Me';
 import Register from './pages/Register';
 
 function App() {
@@ -17,8 +19,10 @@ function App() {
       <Header />
       <Routes>
         < Route path='/' element={<Dashboard/>}/>
+        {/* <Route path='/Add' element={<AddNewPost />}/> */}
         < Route path='/login' element={<Login/>}/>
         < Route path='/register' element={<Register/>}/>
+        < Route path='/me' element={<Me />} />
       </Routes>
     </div>
     </Router>
